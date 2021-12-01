@@ -1,6 +1,8 @@
 # file-to-array-converter
 
-App which converts .csv .json .xml files into arrays and display as a table. Files are located under: public/files directory.
+App which converts .csv .json .xml files into arrays and display as a table. 
+Files are located under: public/files directory. 
+File extensions can be controlled by .env file.
 
 - PHP7
 - Docker
@@ -17,11 +19,26 @@ App which converts .csv .json .xml files into arrays and display as a table. Fil
 |   +-- Factory
 |   +-- Object
 |   +-- Util
+|       +-- FileToArrayStrategy
 |   +-- Validator
 +-- public
 |   +-- files
 +-- views
 ```
+
+## Files to read
+
+```
+example.csv
+example.json
+example.xml
+```
+
+## Server
+
+### Address
+
+> http://localhost:8081
 
 ## Docker
 
@@ -31,10 +48,10 @@ App which converts .csv .json .xml files into arrays and display as a table. Fil
 
 ### Opens shell for php
 
-> docker exec -ti php bash
+> docker-compose exec php bash
 
 
-## XDEBUG
+## Xdebug
 
 Default configuration is for PHP Storm
 
@@ -42,4 +59,18 @@ Default configuration is for PHP Storm
 xdebug.mode=develop,debug
 xdebug.client_host=host.docker.internal
 xdebug.start_with_request=yes
+```
+
+## Routes
+
+Routes are stored in config/routes.json path. Example implementation:
+
+```json
+{
+  "awesome-route": {
+    "path": "/awesome",
+    "controller": "AwesomeController",
+    "action": "index"
+  }
+}
 ```
