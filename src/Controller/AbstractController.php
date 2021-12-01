@@ -2,10 +2,21 @@
 
 namespace App\Controller;
 
+use App\Exception\FileNotFoundException;
+use App\Object\View;
+
 abstract class AbstractController
 {
-    protected function render()
+    /**
+     * Render view by file name
+     *
+     * @throws FileNotFoundException
+     */
+    protected function renderView(string $viewFileName, array $parameters = [])
     {
-        echo "render";
+        $view = new View();
+        $view->setOutputByViewFileName($viewFileName);
+        $view->setParameters($parameters);
+        $view->render();
     }
 }
