@@ -3,5 +3,10 @@
     "path": "/",
     "controller": "FormController",
     "action": "index"
+  },
+  "form-process": {
+    "path": "/process-form",
+    "controller": "FormController",
+    "action": "process"
   }
 }

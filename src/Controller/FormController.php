@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Exception\FileExtensionNotSupportedException;
 use App\Exception\FileNotFoundException;
+use App\Exception\InvalidFileNameException;
+use App\Exception\InvalidInputException;
+use App\Exception\NotImplementedException;
+use App\Util\FileToArrayConverterLoader;
+use App\Validator\InputValidator;
 
 class FormController extends AbstractController
 {
@@ -13,6 +19,29 @@ class FormController extends AbstractController
      */
     public function index()
     {
-        $this->renderView('form');
+        $this->renderView('form', [
+            'possibleExtensionsString' => ! empty(getenv('supported_extensions')) ? getenv('supported_extensions') : 'none'
+        ]);
+    }
+
+    /**
+     * @throws FileNotFoundException
+     * @throws InvalidInputException
+     * @throws FileExtensionNotSupportedException
+     * @throws InvalidFileNameException
+     * @throws NotImplementedException
+     */
+    public function process()
+    {
+        $inputValidator = new InputValidator();
+        $fileToArrayConverterLoader = new FileToArrayConverterLoader();
+
+        $fileName = $_POST['filename'] ?? null;
+        $inputValidator->validate($fileName);
+        $fileToArrayConverter = $fileToArrayConverterLoader->getFileToArrayConverterByFileName($fileName);
+
+        $this->renderView('output', [
+            'items' => $fileToArrayConverter->getArray()
+        ]);
     }
 }
