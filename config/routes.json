@@ -1,0 +1,7 @@
+{
+  "form-index": {
+    "path": "/",
+    "controller": "FormController",
+    "action": "index"
+  }
+}
