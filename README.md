@@ -1,6 +1,6 @@
 # file-to-array-converter
 
-App which converts .csv .json .xml files into arrays and display as a table.
+App which converts .csv .json .xml files into arrays and display as a table. Files are located under: public/files directory.
 
 - PHP7
 - Docker
