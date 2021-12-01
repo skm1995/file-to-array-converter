@@ -15,7 +15,7 @@ class FileValidator
     public function validateIfFileExists(string $filePath)
     {
         if (! file_exists($filePath)) {
-            throw new FileNotFoundException("File $filePath not found!");
+            throw new FileNotFoundException("File not found!");
         }
     }
 

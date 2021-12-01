@@ -7,6 +7,7 @@ use App\Util\Router;
 require_once __DIR__ . '/../autoloader.php';
 
 try {
+    session_start();
     RouteFetcher::fetch();
     $router = new Router();
     $router->handleRequest();
