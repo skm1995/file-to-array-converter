@@ -9,7 +9,13 @@ class XmlToArrayStrategy implements FileToArrayStrategyInterface
         $data = [];
         $xmlResult = simplexml_load_string($fileContent);
         foreach ($xmlResult as $xmlData) {
-            $data[] = get_object_vars($xmlData);
+            $fields = get_object_vars($xmlData);
+            foreach ($fields as &$field) {
+                if (is_numeric($field)) {
+                    $field = (int)$field;
+                }
+            }
+            $data[] = $fields;
         }
         return $data;
     }

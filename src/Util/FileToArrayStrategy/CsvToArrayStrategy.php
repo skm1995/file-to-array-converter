@@ -15,7 +15,9 @@ class CsvToArrayStrategy implements FileToArrayStrategyInterface
             }
             $row = [];
             foreach (str_getcsv($line) as $lineKey => $field) {
-                $row[trim($headers[$lineKey], "'")] = trim($field, "'");
+                $field = trim($field, "'");
+                $field = is_numeric($field) ? (int)$field : $field;
+                $row[trim($headers[$lineKey], "'")] = $field;
             }
             $data[] = $row;
         }
