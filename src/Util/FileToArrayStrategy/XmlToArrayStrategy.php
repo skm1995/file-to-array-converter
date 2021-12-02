@@ -7,15 +7,15 @@ class XmlToArrayStrategy implements FileToArrayStrategyInterface
     public function convert(string $fileContent): array
     {
         $data = [];
-        $iteration = 0;
         $xmlResult = simplexml_load_string($fileContent);
         foreach ($xmlResult as $xmlData) {
-            $xmlDataArray = get_object_vars($xmlData);
-            if ($iteration == 0) {
-                $data[] = array_keys($xmlDataArray);
+            $fields = get_object_vars($xmlData);
+            foreach ($fields as &$field) {
+                if (is_numeric($field)) {
+                    $field = (int)$field;
+                }
             }
-            $data[] = array_values($xmlDataArray);
-            $iteration ++;
+            $data[] = $fields;
         }
         return $data;
     }

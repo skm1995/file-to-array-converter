@@ -7,17 +7,19 @@ class CsvToArrayStrategy implements FileToArrayStrategyInterface
     public function convert(string $fileContent): array
     {
         $data = [];
-        $dataRow = 0;
-        $csvResult = str_getcsv($fileContent);
-        foreach ($csvResult as $csvItem) {
-            if (strstr($csvItem, "\r\n")) {
-                $dividedString = explode("\r\n", $csvItem);
-                $data[$dataRow][] = trim($dividedString[0], "'");
-                $dataRow ++;
-                $data[$dataRow][] = trim($dividedString[1], "'");
-            } else {
-                $data[$dataRow][] = trim($csvItem, "'");
+        $lines = explode( "\r\n", $fileContent);
+        $headers = str_getcsv(array_shift($lines ));
+        foreach ($lines as $line ) {
+            if (empty($line)) {
+                continue;
             }
+            $row = [];
+            foreach (str_getcsv($line) as $lineKey => $field) {
+                $field = trim($field, "'");
+                $field = is_numeric($field) ? (int)$field : $field;
+                $row[trim($headers[$lineKey], "'")] = $field;
+            }
+            $data[] = $row;
         }
         return $data;
     }
