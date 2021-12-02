@@ -40,6 +40,9 @@ example.xml
 
 > http://localhost:8081
 
+## .env
+Create .env file from .env.dist and justify it for your needs. 
+
 ## Docker
 
 ### Run all services
