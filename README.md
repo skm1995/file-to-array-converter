@@ -1,6 +1,6 @@
 # file-to-associative-array-converter
 
-App which converts .csv .json .xml files into arrays and display as an associative array. 
+App which converts and display .csv .json .xml files as an associative array. 
 Files are located under: public/files directory. 
 File extensions can be controlled by .env file.
 
